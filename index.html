@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ganpati Invitation</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: black;
+}
+
+/* DOORS */
+.door {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 5;
+    transition: transform 1.5s ease-in-out;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
+}
+
+.door img {
+    position: absolute;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    max-width: none;
+}
+
+.left img {
+    left: 0;
+}
+
+.right img {
+    left: -100%;
+}
+
+/* OPENING */
+.open .left {
+    transform: translateX(-100%);
+}
+
+.open .right {
+    transform: translateX(100%);
+}
+
+/* OM BUTTON */
+#om {
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(30vw, 30vh);
+    height: min(30vw, 30vh);
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+#om img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.open #om {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* GANESHA */
+#ganesha {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: min(90vw, 90vh);
+    height: min(90vw, 90vh);
+    object-fit: contain;
+
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+.showGanesha {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) scale(1) !important;
+}
+
+/* INVITATION */
+#card {
+    position: absolute;
+    z-index: 3;
+
+    left: 8%;
+    top: 10%;
+    width: 84%;
+    height: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    color: #ffd933;
+    font-family: Georgia, serif;
+    font-weight: bold;
+
+    font-size: clamp(18px, 4.5vw, 42px);
+    line-height: 1.5;
+
+    opacity: 0;
+    transform: translateY(30px);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+.showCard {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* TEXT */
+#hint {
+    position: absolute;
+    z-index: 11;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    color: #ffd933;
+    font-size: 16px;
+    white-space: nowrap;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- LEFT DOOR -->
+    <div class="door left">
+        <img src="door.png">
+    </div>
+
+    <!-- RIGHT DOOR -->
+    <div class="door right">
+        <img src="door.png">
+    </div>
+
+    <!-- OM -->
+    <button id="om">
+        <img src="om_transparent.png">
+    </button>
+
+    <div id="hint">
+        Tap the Om to open 🙏
+    </div>
+
+    <!-- GANESHA -->
+    <img id="ganesha" src="ganesha.png">
+
+    <!-- INVITATION -->
+    <div id="card">
+        <div>
+            ✨ INVITATION ✨
+            <br><br>
+
+            With great joy,
+            <br>
+            we invite you to our celebration
+            <br><br>
+
+            🙏 Please join us 🙏
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+let opened = false;
+
+document.getElementById("om").onclick = function() {
+
+    if (opened) return;
+
+    opened = true;
+
+    const app = document.getElementById("app");
+    const ganesha = document.getElementById("ganesha");
+    const card = document.getElementById("card");
+
+    /* OPEN DOORS */
+    app.classList.add("open");
+
+    /* SHOW GANESHA */
+    setTimeout(function() {
+        ganesha.classList.add("showGanesha");
+    }, 300);
+
+    /* AFTER 3 SECONDS */
+    setTimeout(function() {
+
+        ganesha.classList.remove("showGanesha");
+
+        /* SHOW INVITATION */
+        setTimeout(function() {
+            card.classList.add("showCard");
+        }, 700);
+
+    }, 3000);
+};
+
+</script>
+
+</body>
+  </html>
